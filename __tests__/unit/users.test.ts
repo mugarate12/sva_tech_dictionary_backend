@@ -14,7 +14,7 @@ import {
   usersService
 } from './../../src/services';
 
-describe('Users tests', () => {
+describe('Users unit tests', () => {
   const id = usersService.generateUUID();
   const name = 'Mateus';
   const email = 'mail@mail.com';
