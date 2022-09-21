@@ -1,3 +1,3 @@
-import ExampleController from "./ExampleController";
+import AuthorizationController from "./AuthorizationController";
 
-export const exampleController = new ExampleController();
+export const authorizationController = new AuthorizationController();

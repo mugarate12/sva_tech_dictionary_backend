@@ -1,9 +1,10 @@
 import { Router } from 'express';
 
-import example from './example.routes';	
 
 const routes = Router();
 
-example(routes);
+routes.get('/', (req, res) => {
+  return res.status(200).json({ message: "Fullstack Challenge 🏅 - Dictionary" });
+});
 
 export default routes;
