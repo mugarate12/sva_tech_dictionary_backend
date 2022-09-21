@@ -14,7 +14,7 @@ import {
 
 describe('Users integration tests', () => {
   const name = 'Mateus C';
-  const email = 'mateusMail@mail.com';
+  const email = 'mateusCardosoMail@mail.com';
   const password = '123456';
 
   beforeAll(async () => {
