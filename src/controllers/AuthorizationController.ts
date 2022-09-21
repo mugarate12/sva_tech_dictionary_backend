@@ -6,9 +6,6 @@ import {
 import {
   UserModel
 } from './../database';
-import {
-  handleError
-} from './../utils';
 
 export default class AuthorizationController {
   public async signup(req: Request, res: Response) {
@@ -27,7 +24,7 @@ export default class AuthorizationController {
       .then(() => {
         const token = usersService.createUserToken(id);
 
-        return res.status(201).json({
+        return res.status(200).json({
           id,
           name,
           token: `Bearer ${token}`
@@ -35,10 +32,7 @@ export default class AuthorizationController {
       })
       .catch((err) => {
         console.log('create user error: ', err);
-        return handleError.errorHandler(
-          new handleError.AppError('User Error', 403, 'User not created, try again later', false),
-          res
-        );
+        return res.status(400).json({ message: 'Erro ao criar e logar usuário, por favor, verifique as informações e tente novamente!' })
       });
   }
 
@@ -48,18 +42,12 @@ export default class AuthorizationController {
     const userFounded = await UserModel.findOne({ email });
 
     if (!userFounded) {
-      return handleError.errorHandler(
-        new handleError.AppError('User Error', 404, 'User not found', false),
-        res
-      );
+      return res.status(400).json({ message: 'Usuário não encontrado!' });
     }
 
     const comparePassword = await usersService.comparePassword(password, userFounded.password);
     if (!comparePassword) {
-      return handleError.errorHandler(
-        new handleError.AppError('User Error', 404, 'User not found', false),
-        res
-      );
+      return res.status(400).json({ message: 'Usuário não encontrado!' });
     }
 
     const token = usersService.createUserToken(userFounded.id);

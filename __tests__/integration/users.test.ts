@@ -36,7 +36,7 @@ describe('Users integration tests', () => {
           password
         });
 
-      expect(response.status).toBe(201);
+      expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('id');
       expect(response.body).toHaveProperty('name');
       expect(response.body).toHaveProperty('token');
