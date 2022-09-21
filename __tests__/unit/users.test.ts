@@ -15,12 +15,17 @@ import {
 } from './../../src/services';
 
 describe('Users tests', () => {
+  const id = usersService.generateUUID();
+  const name = 'Mateus';
+  const email = 'mail@mail.com';
+  const password = '123456';
+
   beforeAll(async () => {
     await connectDatabase();
   });
 
   afterAll(async () => {
-    await UserModel.deleteMany({});
+    await UserModel.deleteOne({ id });
     await disconnectDatabase();
   });
 
@@ -45,11 +50,6 @@ describe('Users tests', () => {
   });
 
   describe('User Model tests', () => {
-    const id = usersService.generateUUID();
-    const name = 'Mateus';
-    const email = 'mail@mail.com';
-    const password = '123456';
-
     test('create user', async () => {
       const user = new UserModel({
         id,
