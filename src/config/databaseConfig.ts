@@ -12,4 +12,10 @@ async function connectDatabase() {
     .catch((err) => console.log('Error connecting to MongoDB', err));
 }
 
+export async function disconnectDatabase() {
+  await mongoose.connection.close()
+    .then(() => console.log('Disconnected from MongoDB'))
+    .catch((err) => console.log('Error disconnecting from MongoDB', err));
+}
+
 export default connectDatabase;
