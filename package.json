@@ -22,7 +22,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.1",
     "redis": "^4.3.1",
-    "run-script-os": "^1.1.6"
+    "run-script-os": "^1.1.6",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.1",

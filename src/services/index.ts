@@ -1,3 +1,3 @@
-import ExampleService from "./Example.services";
+import UsersServices from "./Users.services";
 
-export const exampleService = new ExampleService();
+export const usersService = new UsersServices();
