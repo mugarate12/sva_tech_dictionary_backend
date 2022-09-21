@@ -29,7 +29,7 @@ describe('Users unit tests', () => {
     await disconnectDatabase();
   });
 
-  describe('User Services tests', () => {
+  describe('User services tests', () => {
     test('encrypt user password successful', async () => {
       const password = '123456';
 
@@ -49,7 +49,7 @@ describe('Users unit tests', () => {
     });
   });
 
-  describe('User Model tests', () => {
+  describe('User model tests', () => {
     test('create user', async () => {
       const user = new UserModel({
         id,
