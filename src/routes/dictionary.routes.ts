@@ -20,4 +20,16 @@ export default function routes(routes: Router) {
       word: Joi.string().required()
     })
   }), authJWT, dictionaryController.get);
+
+  routes.post('/entries/en/:word/favorite', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      word: Joi.string().required()
+    })
+  }), authJWT, dictionaryController.favorite);
+
+  routes.delete('/entries/en/:word/unfavorite', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      word: Joi.string().required()
+    })
+  }), authJWT, dictionaryController.unfavorite);
 }

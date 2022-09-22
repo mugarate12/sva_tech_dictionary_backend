@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import {
   DictionaryModel,
+  FavoriteModel,
   HistoryModel
 } from './../database';
 import {
@@ -152,6 +153,41 @@ export default class DictionaryController {
       })
       .catch(error => {
         return res.status(400).json({ message: 'Palavra não encontrada ou requisição não concluída com sucesso! Tente novamente ou verifique que palavra gostaria de pesquisar.' });
+      });
+  }
+
+  public async favorite (req: Request, res: Response) {
+    const { word } = req.params;
+    const userID = String(usersService.getUserID(res));
+
+    const getFavorite = await FavoriteModel.findOne({ word, userID });
+
+    if (!getFavorite) {
+      const favorite = new FavoriteModel({ word, userID });
+      return await favorite.save()
+        .then(() => {
+          return res.status(200).json({ message: 'Palavra adicionada aos favoritos com sucesso!' });
+        })
+        .catch(error => {
+          // console.log(error);
+          return res.status(400).json({ message: 'Erro ao salvar palavra como favorita!' });
+        });
+    } else {
+      return res.status(400).json({ message: 'Palavra já está salva como favorita!' });
+    }
+  }
+
+  public async unfavorite (req: Request, res: Response) {
+    const { word } = req.params;
+    const userID = String(usersService.getUserID(res));
+
+    return await FavoriteModel.deleteOne({ word, userID })
+      .then(() => {
+        return res.status(200).json({ message: 'Palavra removida dos favoritos!' });
+      })
+      .catch(error => {
+        // console.log(error);
+        return res.status(400).json({ message: 'Erro ao remover palavra dos favoritos!' });
       });
   }
 }

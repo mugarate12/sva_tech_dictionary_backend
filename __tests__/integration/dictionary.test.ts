@@ -72,5 +72,25 @@ describe('Dictionary integration tests', () => {
       expect(response.body[0]).toHaveProperty('license');
       expect(response.body[0]).toHaveProperty('sourceUrls');
     });
+
+    test('favorite word', async () => {
+      const response = await request(app)
+        .post(`/entries/en/${word}/favorite`)
+        .set('Authorization', userToken);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('message');
+      expect(response.body.message).toBe('Palavra adicionada aos favoritos com sucesso!');
+    });
+
+    test('unfavorite word', async () => {
+      const response = await request(app)
+        .delete(`/entries/en/${word}/unfavorite`)
+        .set('Authorization', userToken);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('message');
+      expect(response.body.message).toBe('Palavra removida dos favoritos!');
+    });
   });
 });
