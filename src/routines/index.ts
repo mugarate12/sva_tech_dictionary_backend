@@ -5,8 +5,8 @@ import {
 
 export default async () => {
   // initial routine in start of service
-  await getAllWordsInApiAndSaveInDatabase();
+  // await getAllWordsInApiAndSaveInDatabase();
 
-  // cron jobs start
-  getAndSaveAllWordsRoutine.start();
+  // // cron jobs start
+  // getAndSaveAllWordsRoutine.start();
 }

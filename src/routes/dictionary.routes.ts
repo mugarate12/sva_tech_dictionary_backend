@@ -14,4 +14,10 @@ export default function routes(routes: Router) {
       limit: Joi.number().optional()
     })
   }), authJWT, dictionaryController.index);
+
+  routes.get('/entries/en/:word', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      word: Joi.string().required()
+    })
+  }), authJWT, dictionaryController.get);
 }

@@ -1,9 +1,14 @@
 import { Request, Response } from 'express';
 import mongoose, { QueryOptions, ObjectId } from 'mongoose';
+import axios from 'axios';
 
 import {
-  DictionaryModel
+  DictionaryModel,
+  HistoryModel
 } from './../database';
+import {
+  usersService
+} from './../services';
 
 export default class DictionaryController {
   public async index (req: Request, res: Response) {
@@ -87,5 +92,66 @@ export default class DictionaryController {
       hasNext,
       hasPrev: hasPrev,
     });
+  }
+
+  public async get (req: Request, res: Response) {
+    const { word } = req.params;
+    const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
+
+    const userID = String(usersService.getUserID(res));
+
+    return await axios.get<Array<{
+      word: string;
+      phonetic: string;
+      phonetics: Array<{
+        text: string,
+        audio?: string
+      }>;
+      origin?: string;
+      meanings: Array<{
+        partOfSpeech: string,
+        definitions: Array<{
+          definition: string,
+          synonyms: Array<string>,
+          antonyms: Array<string>,
+          example?: string
+        }>,
+        synonyms: Array<string>;
+        antonyms: Array<string>;
+      }>;
+      license: {
+        name: string,
+        url: string
+      };
+      sourceUrls: Array<string>;
+    }>>(url)
+      .then(response => response.data)
+      .then(async data => {
+        // save word in history
+        const getHistory = await HistoryModel.findOne({ word, userID });
+        
+        if (!getHistory) {
+          const history = new HistoryModel({ word, userID });
+          await history.save()
+            .catch(error => {
+              // console.log(error);
+              throw new Error('Error saving word in history');
+            });
+        } else {
+          await HistoryModel.updateOne({ word, userID }, { createdAt: Date.now() })
+            .catch(error => {
+              console.log(error);
+              throw new Error('Error updating word in history');
+            });
+        }
+        
+        return data;
+      })
+      .then(data => {
+        return res.status(200).json(data);
+      })
+      .catch(error => {
+        return res.status(400).json({ message: 'Palavra não encontrada ou requisição não concluída com sucesso! Tente novamente ou verifique que palavra gostaria de pesquisar.' });
+      });
   }
 }

@@ -18,7 +18,7 @@ import {
 } from './../../src/routines/dictionary.routine';
 
 describe('Dictionary unit tests', () => {
-  const word = 'fire';
+  const word = 'uidaidhaidagdiaduadiaugiagdiagdiavdia';
 
   beforeAll(async () => {
     await connectDatabase();
