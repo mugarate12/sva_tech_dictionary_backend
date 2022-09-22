@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import authorizationRoutes from './authorization.routes';
+import dictionaryRoutes from './dictionary.routes';
 
 const routes = Router();
 
@@ -9,5 +10,6 @@ routes.get('/', (req, res) => {
 });
 
 authorizationRoutes(routes);
+dictionaryRoutes(routes);
 
 export default routes;

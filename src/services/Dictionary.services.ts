@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+import {
+  DictionaryModel
+} from './../database';
+
 export default class DictionaryServices {
   public async getAllWords() {
     const url = 'https://raw.githubusercontent.com/meetDeveloper/freeDictionaryAPI/master/meta/wordList/english.txt';
@@ -11,5 +15,11 @@ export default class DictionaryServices {
     return words;
   }
 
+  public async getLikeAWord(word: string) {
+    const words = await DictionaryModel
+      .find({ word: { $regex: word, $options: 'i' } })
+      .transform(docs => docs.map(doc => doc.word));
 
+    return words;
+  }
 }
