@@ -11,9 +11,9 @@ const url = process.env.REDIS_URL || 'redis://localhost:6379';
 
   redisClient?.on("error", (error) => console.error(`Error : ${error}`));
 
-  console.log('trying to connect to redis');
+  // console.log('trying to connect to redis');
   await redisClient?.connect();
-  console.log('redis connected');
+  // console.log('redis connected');
 })();
 
 async function get(key: string) {
