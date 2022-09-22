@@ -30,12 +30,12 @@ describe('Dictionary unit tests', () => {
   });
 
   describe('Dictionary services tests', () => {
-    test('get all words of dictionary', async () => {
+    test('get all words of dictionary in FreeDictionaryAPI', async () => {
       const words = await dictionaryServices.getAllWords();
 
       expect(words).not.toBeNull();
       expect(words).not.toBeUndefined();
-      expect(words.length).toBeGreaterThan(0);
+      expect(words.length).toBeGreaterThanOrEqual(0);
     });
   });
 
@@ -67,7 +67,7 @@ describe('Dictionary unit tests', () => {
       expect(words).not.toBeNull();
       expect(words).not.toBeUndefined();
       expect(words.length).toBeGreaterThan(0);
-    });
+    }, 100000);
 
     test('delete word', async () => {
       const wordDeleted = await DictionaryModel.deleteOne({ word });
@@ -80,7 +80,7 @@ describe('Dictionary unit tests', () => {
 
   describe('Dictionary routine tests', () => {
     test('save all words in database', async () => {
-      await getAllWordsInApiAndSaveInDatabase(50);
+      await getAllWordsInApiAndSaveInDatabase(20);
       const wordsInDatabase = await DictionaryModel.find();
       const wordsInAPI = await dictionaryServices.getAllWords();
 
@@ -88,6 +88,6 @@ describe('Dictionary unit tests', () => {
       expect(wordsInDatabase).not.toBeUndefined();
       expect(wordsInDatabase.length).toBeGreaterThan(0);
       expect(wordsInAPI.length).toBeGreaterThanOrEqual(wordsInDatabase.length);
-    }, 10000);
+    }, 100000);
   });
 });

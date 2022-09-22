@@ -6,7 +6,6 @@ import {
 import request from 'supertest';
 
 import app from './../../src/app';
-
 import connectDatabase, { disconnectDatabase } from './../../src/config/databaseConfig';
 import {
   UserModel
