@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import authorizationRoutes from './authorization.routes';
 import dictionaryRoutes from './dictionary.routes';
+import userRoutes from './users.routes';
 
 const routes = Router();
 
@@ -11,5 +12,6 @@ routes.get('/', (req, res) => {
 
 authorizationRoutes(routes);
 dictionaryRoutes(routes);
+userRoutes(routes);
 
 export default routes;

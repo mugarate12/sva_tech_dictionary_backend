@@ -11,13 +11,30 @@ import {
   UserModel
 } from './../../src/database';
 
+async function signInUser() {
+  const email = 'emailteste123131@mail.com';
+  const password = 'teste123';
+
+  const user = await request(app)
+    .post('/auth/signin')
+    .send({
+      email,
+      password
+    });
+
+  return user.body.token;
+}
+
 describe('Users integration tests', () => {
   const name = 'Mateus C';
   const email = 'mateusCardosoMail@mail.com';
   const password = '123456';
 
+  let userToken = '';
+
   beforeAll(async () => {
     await connectDatabase();
+    userToken = await signInUser();
   });
 
   afterAll(async () => {
@@ -57,6 +74,19 @@ describe('Users integration tests', () => {
       expect(response.body).toHaveProperty('token');
       expect(response.body.name).toBe(name);
       expect(response.body.token).toContain('Bearer');
+    });
+  });
+
+  describe('Perfil routes', () => {
+    test('get perfil informations', async () => {
+      const userRequest = await request(app)
+        .get('/me')
+        .set('Authorization', userToken);
+
+      expect(userRequest.status).toBe(200);
+      expect(userRequest.body).toHaveProperty('id');
+      expect(userRequest.body).toHaveProperty('name');
+      expect(userRequest.body).toHaveProperty('email');
     });
   });
 });
