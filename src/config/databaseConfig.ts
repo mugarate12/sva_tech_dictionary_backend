@@ -8,13 +8,17 @@ const uri = `mongodb+srv://svaTech:${mongoDBPassword}@svatech.r91vcev.mongodb.ne
 
 async function connectDatabase() {
   await mongoose.connect(uri)
-    .then(() => console.log('Connected to MongoDB'))
+    .then(() => {
+      // console.log('Connected to MongoDB')
+    })
     .catch((err) => console.log('Error connecting to MongoDB', err));
 }
 
 export async function disconnectDatabase() {
   await mongoose.connection.close()
-    .then(() => console.log('Disconnected from MongoDB'))
+    .then(() => {
+      // console.log('Disconnected from MongoDB')
+    })
     .catch((err) => console.log('Error disconnecting from MongoDB', err));
 }
 
