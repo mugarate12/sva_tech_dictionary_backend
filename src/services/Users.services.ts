@@ -1,11 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import { Response } from 'express';
 
-dotenv.config()
-
-const JWT_SECRET = process.env.JWT_SECRET || 'secret'
+import { constants } from './../config';
 
 export default class UsersServices {
   public generateUUID() {
@@ -23,8 +21,17 @@ export default class UsersServices {
   }
 
   public createUserToken(userID: string) {
-    return jwt.sign({
-      id: userID
-    }, JWT_SECRET, {})
+    const payload = { id: userID };
+    return jwt.sign(payload, constants.JWT_SECRET, {})
+  }
+
+  public getUserID(res: Response) {
+    const tokenDecodedID = res.getHeader(constants.headerUserID);
+
+    if (!tokenDecodedID) {
+      return undefined;
+    } else {
+      return String(tokenDecodedID);
+    }
   }
 }
