@@ -70,7 +70,7 @@ export default class DictionaryController {
     ]);
 
     const haveDocumentsInSearch = words.length > 0;
-    const isNotLastDocumentInFilteredSearch = words[words.length - 1]._id !== lastDocument?._id;
+    const isNotLastDocumentInFilteredSearch = words[words.length - 1]._id.toString() !== lastDocument?._id.toString();
     const hasPrev = !!cursor && !!firstDocument && cursor !== String(firstDocument._id);
     const hasNext = haveDocumentsInSearch && isNotLastDocumentInFilteredSearch;
     const previous = hasPrev ?
