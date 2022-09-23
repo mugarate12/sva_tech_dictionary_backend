@@ -11,22 +11,23 @@ export async function getAllWordsInApiAndSaveInDatabase(maxWordsToSave?: number)
   });
   const wordsInAPI = await dictionaryServices.getAllWords();
 
-  const wordsToSave = wordsInAPI.filter((word) => !wordsInDatabase.includes(word));
-
   // process one request per word
-  for (let index = 0; index < wordsToSave.length; index++) {
-    if (maxWordsToSave && index + 1 > maxWordsToSave) break;
+  let wordsSaved = 0;
+  for (let index = 0; index < wordsInAPI.length; index++) {
+    if (maxWordsToSave && wordsSaved >= maxWordsToSave) break;
     
-    const word = wordsToSave[index];
+    const word = wordsInAPI[index];
+    if (wordsInDatabase.includes(word)) continue;
     
     const newWord = new DictionaryModel({
       word
     });
 
     await newWord.save();
+    wordsSaved++;
   }
 
-  return maxWordsToSave ? maxWordsToSave : wordsToSave.length;
+  return maxWordsToSave ? maxWordsToSave : wordsSaved;
 }
 
 export const getAndSaveAllWordsRoutine = new CronJob.CronJob(everyDay, getAllWordsInApiAndSaveInDatabase);
