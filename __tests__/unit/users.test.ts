@@ -16,8 +16,8 @@ import {
 
 describe('Users unit tests', () => {
   const id = usersService.generateUUID();
-  const name = 'Mateus';
-  const email = 'mail@mail.com';
+  const name = 'TESTE_12390313103819318';
+  const email = 'teste_12390313103819318@mail.com';
   const password = '123456';
 
   beforeAll(async () => {

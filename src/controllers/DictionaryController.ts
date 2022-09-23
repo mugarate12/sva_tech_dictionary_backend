@@ -148,8 +148,13 @@ export default class DictionaryController {
         
         return data;
       })
-      .then(data => {
-        return res.status(200).json(data);
+      .then(async (data) => {
+        const isFavorite = await FavoriteModel.findOne({ word, userID });
+
+        return res.status(200).json({
+          isFavorite: isFavorite ? true : false,
+          data
+        });
       })
       .catch(error => {
         return res.status(400).json({ message: 'Palavra não encontrada ou requisição não concluída com sucesso! Tente novamente ou verifique que palavra gostaria de pesquisar.' });

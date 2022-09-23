@@ -64,13 +64,14 @@ describe('Dictionary integration tests', () => {
         .set('Authorization', userToken);
 
       expect(response.status).toBe(200);
-      expect(response.body.length).toBeGreaterThanOrEqual(0);
-      expect(response.body[0]).toHaveProperty('word');
-      expect(response.body[0]).toHaveProperty('phonetic');
-      expect(response.body[0]).toHaveProperty('phonetics');
-      expect(response.body[0]).toHaveProperty('meanings');
-      expect(response.body[0]).toHaveProperty('license');
-      expect(response.body[0]).toHaveProperty('sourceUrls');
+      expect(response.body).toHaveProperty('isFavorite');
+      expect(response.body.data.length).toBeGreaterThanOrEqual(0);
+      expect(response.body.data[0]).toHaveProperty('word');
+      expect(response.body.data[0]).toHaveProperty('phonetic');
+      expect(response.body.data[0]).toHaveProperty('phonetics');
+      expect(response.body.data[0]).toHaveProperty('meanings');
+      expect(response.body.data[0]).toHaveProperty('license');
+      expect(response.body.data[0]).toHaveProperty('sourceUrls');
     });
 
     test('favorite word', async () => {
