@@ -80,13 +80,28 @@ describe('Users integration tests', () => {
   describe('Perfil routes', () => {
     test('get perfil informations', async () => {
       const userRequest = await request(app)
-        .get('/me')
+        .get('/user/me')
         .set('Authorization', userToken);
 
       expect(userRequest.status).toBe(200);
       expect(userRequest.body).toHaveProperty('id');
       expect(userRequest.body).toHaveProperty('name');
       expect(userRequest.body).toHaveProperty('email');
+    });
+
+    test('get history of words searched', async () => {
+      const userHistoryRequest = await request(app)
+        .get('/user/me/history')
+        .set('Authorization', userToken);
+
+      expect(userHistoryRequest.status).toBe(200);
+      expect(userHistoryRequest.body).toHaveProperty('results');
+      expect(userHistoryRequest.body).toHaveProperty('totalDocs');
+      expect(userHistoryRequest.body).toHaveProperty('next');
+      expect(userHistoryRequest.body).toHaveProperty('previous');
+      expect(userHistoryRequest.body).toHaveProperty('hasNext');
+      expect(userHistoryRequest.body).toHaveProperty('hasPrev');
+      expect(userHistoryRequest.body.results.length).toBeGreaterThanOrEqual(0);
     });
   });
 });
