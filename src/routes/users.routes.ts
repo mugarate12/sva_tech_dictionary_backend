@@ -15,4 +15,11 @@ export default function routes(routes: Router) {
       limit: Joi.number().optional()
     }
   }), authJWT, userController.history);
+  routes.get('/user/me/favorites', authJWT, celebrate({
+    [Segments.QUERY]: {
+      search: Joi.string().optional(),
+      cursor: Joi.string().optional(),
+      limit: Joi.number().optional()
+    }
+  }), authJWT, userController.favorites);
 }

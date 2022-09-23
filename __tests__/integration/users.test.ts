@@ -103,5 +103,20 @@ describe('Users integration tests', () => {
       expect(userHistoryRequest.body).toHaveProperty('hasPrev');
       expect(userHistoryRequest.body.results.length).toBeGreaterThanOrEqual(0);
     });
+
+    test('get favorites of words searched', async () => {
+      const userHistoryRequest = await request(app)
+        .get('/user/me/favorites')
+        .set('Authorization', userToken);
+
+      expect(userHistoryRequest.status).toBe(200);
+      expect(userHistoryRequest.body).toHaveProperty('results');
+      expect(userHistoryRequest.body).toHaveProperty('totalDocs');
+      expect(userHistoryRequest.body).toHaveProperty('next');
+      expect(userHistoryRequest.body).toHaveProperty('previous');
+      expect(userHistoryRequest.body).toHaveProperty('hasNext');
+      expect(userHistoryRequest.body).toHaveProperty('hasPrev');
+      expect(userHistoryRequest.body.results.length).toBeGreaterThanOrEqual(0);
+    });
   });
 });
