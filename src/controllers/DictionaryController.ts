@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import mongoose, { QueryOptions, ObjectId } from 'mongoose';
 import axios from 'axios';
+import request from 'request';
 
 import {
   DictionaryModel,
@@ -159,6 +160,13 @@ export default class DictionaryController {
       .catch(error => {
         return res.status(400).json({ message: 'Palavra não encontrada ou requisição não concluída com sucesso! Tente novamente ou verifique que palavra gostaria de pesquisar.' });
       });
+  }
+
+  public async getWithProxy (req: Request, res: Response) {
+    const { word } = req.params;
+    const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
+
+    return request(url).pipe(res);
   }
 
   public async favorite (req: Request, res: Response) {

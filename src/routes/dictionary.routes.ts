@@ -27,6 +27,12 @@ export default function routes(routes: Router) {
     })
   }), authJWT, dictionaryController.favorite);
 
+  routes.get('/proxy/:word', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      word: Joi.string().required()
+    })
+  }), dictionaryController.getWithProxy);
+
   routes.delete('/entries/en/:word/unfavorite', celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       word: Joi.string().required()
