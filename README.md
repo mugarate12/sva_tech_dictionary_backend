@@ -1,27 +1,51 @@
-This is a [Nodejs](https://nodejs.org/en/) project bootstrapped with [Create Node Basic](https://github.com/mugarate12/basic-node-ts-config) to create a basic structure and configuration of [Nodejs](https://nodejs.org/en) API with [Express](https://expressjs.com) and [Typescript](https://www.typescriptlang.org)
+# Meu dicionánio - Backend para teste técnico da SVA Tech
 
-## Usage
+O projeto consiste em um backend para um dicionário, onde é possível pesquisar, indexar, favoritar e manter um histórico de palavras pesquisadas e visitadas.
 
-- Your package.json have initial commands to build, run, test and create server to development
+## Tecnologias utilizadas
 
-build your project:
+- [NodeJS](https://nodejs.org/en/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Express](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose](https://mongoosejs.com/)
+- [Redis](https://redis.io/)
+- [Jest](https://jestjs.io/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+## Uso
+
+- Seu package.json tem comandos para rodar o projeto, buildar, testar e iniciar em modo de desenvolvimento, além de caso prefira, utilizar o docker-compose para subir o projeto.
+
+Instale todas as dependências do projeto:
+```shell
+npm install
+```
+
+Executa o build do seu projeto:
 ```shell
 npm run build
 ```
 
-build your project and immediately run your app builded:
+Executa o build do seu projeto e inicia o projeto em modo de produção:
 ```shell
 npm start
 ```
 
-run project in development build:
+Executa seu projeto em modo de desenvolvimento:
 ```shell
 npm run dev
 ```
 
-run all of tests in project:
+Executa todos os testes automatizados do seu projeto:
 ```shell
 npm run test
 ```
 
-- Test your application run correctlly to send HTTP GET to localhost:8000
+Executa o docker compose para subir o projeto:
+```shell
+docker-compose up
+```
+
+> This is a challenge by [Coodesh](https://coodesh.com/)
