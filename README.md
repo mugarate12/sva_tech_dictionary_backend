@@ -48,4 +48,5 @@ Executa o docker compose para subir o projeto:
 docker-compose up
 ```
 
-> This is a challenge by [Coodesh](https://coodesh.com/)
+> Este é o teste por [Coodesh](https://coodesh.com/)
+> Link da apresentação: [Apresentação](https://www.loom.com/embed/0a38e653af4d41e29c8fb45088e7e8a4)
